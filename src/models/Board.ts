@@ -24,15 +24,29 @@ export class Board {
     }
   }
 
-  private getCell(x: number, y: number) {
+  public getCopyBoard(): Board {
+    const newBoard = new Board()
+    newBoard.cells = this.cells
+    return newBoard
+  }
+
+  public highlightCells(selectedCell: Cell | null): void {
+    for (let i = 0; i < this.cells.length; i++) {
+      const row = this.cells[i]
+      for (let j = 0; j < row.length; j++) {
+        const cell = row[j]
+        cell.available = !!selectedCell?.figure?.canMove(cell)
+      }
+    }
+  }
+
+  public getCell(x: number, y: number) {
     return this.cells[y][x]
   }
 
   private addPawn() {
     for (let index = 0; index < 8; index++) {
       new Pawn(Colors.BLACK, this.getCell(index, 1))
-    }
-    for (let index = 0; index < 8; index++) {
       new Pawn(Colors.WHITE, this.getCell(index, 6))
     }
   }
