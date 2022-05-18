@@ -13,7 +13,7 @@ export default function BoardComponent({ board, setBoard }: BoardProps) {
       {board.cells.map((row, index) => (
         <Fragment key={index}>
           {row.map((cell) => {
-            return <CellComponent cell={cell} />
+            return <CellComponent cell={cell} key={cell.id} />
           })}
         </Fragment>
       ))}
